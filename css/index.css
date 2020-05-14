@@ -1,0 +1,394 @@
+* {
+	/*text-decoration: none !important;*/
+	outline: none !important;
+}
+u {
+	text-decoration: underline !important;
+}
+s {
+}
+
+#container {
+	padding: 20px;
+	background-color: rgb(82, 86, 89);
+}
+.step {
+	position: relative;
+	width: 210mm;
+	height: 297mm;
+	margin: 18px auto;
+	box-sizing: border-box;
+	box-shadow: 0 0 25px black;
+	word-wrap: break-all;
+	background-color: white;
+	padding: 10px 40px !important;
+}
+.step:first-child {
+	 margin-top: 0;
+}
+
+.step:last-child {
+	 margin-bottom: 0px;
+}
+.editing .step:last-child {
+	 margin-bottom: 30px;
+}
+.step:after {
+	content: attr(data-page-id);
+    position: absolute;
+    bottom: 10px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    font-family: "微软雅黑";
+}
+.step img {
+	border-radius: 5px;
+}
+.step pre.ql-syntax {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+}
+.step pre {
+    white-space: pre-wrap;
+    margin: 10px;
+    padding: 10px !important;
+    font-size: 20px;
+    font-family: Arial,Verdana, Sans-serif !important;
+}
+.step code, pre {
+    background-color: #f0f0f0;
+    border-radius: 3px;
+}
+
+p.ql-video {
+	margin: 5px 0;
+	box-shadow: 0 0 1px gray;
+	padding: 0;
+}
+
+.step video, .ql-video video {
+	display: block;
+	position: relative;
+	left: 0;
+	right: 0;
+	margin: 0px auto;
+	height: 320px;
+	transition: opacity 0.8s;
+	opacity: 0;
+}
+
+.ql-editor p {
+	padding: 5px 0;
+	font-family: 'Microsoft-YaHei';
+	line-height: 1.5 !important;
+}
+
+/*编辑状态的幻灯片*/
+.editing {
+	position: absolute;
+	left: 70%;
+	width: 30%;
+	height: 100%;
+	overflow-y: scroll;
+	padding: 0 !important;
+}
+
+.editing .step {
+	position: relative;
+	width: 210mm;
+	height: 297mm;
+	box-shadow: 0 0 5px black;
+	transition: box-shadow 0.3s;
+	margin-top: 30px;
+}
+
+.editing .active {
+	outline: 3px solid red !important;
+}
+
+/*编辑器*/
+#quill {
+	position: absolute;
+	top: 0%;
+	left: -70%;
+	width: 70%;
+	height: 100%;
+	overflow: hidden;
+	z-index: 4;
+	transition: left 0.5s;
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+#qull .ql-toolbar {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+}
+#quill #editor {
+	position: relative;
+}
+
+#quill #editor .ql-editor {
+	height: 100%;
+	overflow-y: scroll;
+}
+.ql-formats {
+	margin-top: 5px;
+}
+.ql-picker-item:hover {
+	box-shadow: 0 0 4px blue;
+}
+.ql-editor ol>li, .ql-editor ul>li {
+	padding: 10px;
+}
+.ql-syntax {
+	font-size: 25px !important;
+}
+
+
+.input-groups h3 {
+	display: block;
+	clear: both;
+	font-size: 20px;
+	font-family: 'kaiti';
+	margin: 5px;
+}
+
+
+/*工具*/
+#tool {
+	position: fixed !important;
+	top: 50%;
+	transform: translateY(-50%);
+	left: calc(100vw - 75px);
+	width: 52px;
+  	display: flex;
+  	flex-direction: column;
+  	z-index: 3;
+}
+#tool button {
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 16px;
+	line-height: 50px;
+	transition: all 0.3s;
+	user-select: none;
+	box-shadow: 0px 0px 10px black;
+	border: none;
+	margin-bottom: 20px;
+	background: none;
+}
+#tool button:hover {
+	background-color: rgba(255, 255, 255, 0.6);
+	box-shadow: 0 0 5px black;
+}
+#tool button:active {
+	background-color: white;
+	box-shadow: 0px 0px 10px white;
+}
+#tool #insert-slide, #remove-slide {
+	display: none;
+}
+
+/*插入链接框*/
+#insert-link {
+	position: fixed;
+	left: 0%;
+	right: 0%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 300px;
+	height: 190px;
+	margin: 0 auto;
+	z-index: -1;
+	border-radius: 5px;
+	box-shadow: 0 0 15px black;
+	font-size: 13px;
+	transition: opacity 0.3s;
+	opacity: 0;
+	background-color: white;
+	padding: 15px;
+}
+
+.insert-link .input-group {
+	margin: 10px 0;
+}
+.link-text {
+	display: block;
+	margin: 8px;
+	text-align: center;
+}
+#insert-link button {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	font-size: 15px;
+	padding: 3px;
+	font-family: 'kaiti';	
+}
+
+img[src="   "] {
+	display: none;
+}
+
+/*视频选择框*/
+#insert-video {
+	position: fixed;
+	left: 0%;
+	right: 0%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 300px;
+	height: 230px;
+	margin: 0 auto;
+	z-index: -1;
+	border-radius: 5px;
+	box-shadow: 0 0 15px black;
+	font-size: 13px;
+	transition: opacity 0.3s;
+	opacity: 0;
+	background-color: white;
+	padding: 15px;
+}
+
+input[name="video-name"] {
+	z-index: 3;
+	opacity: 0;
+}
+.insert-video .input-group {
+	margin: 10px 0;
+}
+#insert-video .select-file {
+	position: relative;
+	top: -44px;
+    left: 53px;
+    width: 217px;
+    height: 34px;
+    background-color: white;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 0px 4px 4px 0;
+    text-align: center;
+}
+.video-title {
+	display: block;
+	margin: 8px;
+	text-align: center;
+}
+#insert-video button {
+	position: relative;
+	top: -30px;
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	font-size: 15px;
+	padding: 3px;
+	font-family: 'kaiti';	
+}
+
+/*公式编辑框*/
+#formula-editor {
+	position: fixed;
+	left: 0%;
+	right: 0%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 600px;
+	height: 500px;
+	margin: 0 auto;
+	z-index: -1;
+	border-radius: 10px;
+	box-shadow: 0 0 15px black;
+	font-size: 13px;
+	transition: opacity 0.3s;
+	opacity: 0;
+	background-color: white;
+}
+#formula-editor #input,  #formula-editor #output {
+	height: calc(50% - 15px);
+	width: 100%;
+	border-radius: 10px 10px 0px 0px;
+	padding: 20px;
+	border: 15px solid white;
+	background-color: #f0f0f0;
+}
+#formula-editor button {
+	width: calc(100% - 26px);
+	margin: 0 13px;
+	text-align: center;
+	height: 35px;
+	font-size: 20px;
+	padding: 3px 0;
+	font-family: 'kaiti';
+}
+#formula-editor #output {
+	border-radius: 0px 0px 10px 10px;
+	overflow: scroll;
+}
+
+#formula-editor #buffer {
+	display: none;
+}
+
+/*保存文件名框*/
+#save-filename {
+	position: fixed;
+	left: 0%;
+	right: 0%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 300px;
+	height: 150px;
+	margin: 0 auto;
+	z-index: -1;
+	border-radius: 5px;
+	box-shadow: 0 0 15px black;
+	font-size: 13px;
+	transition: opacity 0.3s;
+	opacity: 0;
+	background-color: white;
+	padding: 15px;
+}
+
+.save-filename .input-group {
+	margin: 10px 0;
+}
+
+#save-filename button {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	font-size: 15px;
+	padding: 3px;
+	font-family: 'kaiti';	
+}
+
+
+@media print {
+	#quill, #tool, header, footer, #insert-video, #insert-link, #formula-editor, #save-filename {
+		display: none;
+	}
+	#container {
+		padding: 0px !important;
+	}
+
+	#container .step {
+		zoom: 1 !important;
+		page-break-after: always;
+		margin: 0 auto;
+		width: 210mm !important;
+		height: 297mm !important;
+	}
+}
