@@ -147,42 +147,51 @@ function show_first_frame(video) {
 // 插入公式
 
 $('.ql-toolbar .ql-formula')[0].onclick = function() {
-	input_popup_change_view('formula-editor');
+	$('[data-formula="e=mc^2"]')[0].value = 'xxxx';
+	$('.ql-action')[0].click();
+	let ql_formula = $$('ql-formula');
+	insert_formula_editor(ql_formula);
+}
+
+// 插入公式编辑
+var islock = !1;
+function insert_formula_editor(ql_formula) {
+	let value = ql_formula.getAttribute('data-value');
+	value === 'xxxx' && (value = '');
+	div = document.createElement('div');
+	div.id = "math-edit";
+	div.innerHTML = `
+		<textarea id='input' oninput="latex_render();" placeholder="输入"></textarea>
+		<button type="button" class="btn btn-default" onclick="insert_formula();">插入</button>
+        <div id='output'></div>
+        <div id="buffer"></div>
+	`
+	ql_formula.parentNode.parentNode.insertBefore(div, ql_formula.parentNode.nextSibling);
+	$$('input').value = value;
+	latex_render();
+	autoTextarea($$('input'), 30);
+	$$('editing') && $$('editing').removeAttribute('id');
+	ql_formula.id = 'editing';
+	ql_formula.innerHTML = '<span style="background-color: #f0f0f0;">MATH</span>';
 	$$('input').focus();
 }
 
-// 离开公式编辑框后，插入公式
-var islock = !1;
 function insert_formula() {
-	input_popup_change_view('formula-editor');
-	$$('output').innerHTML = '';
-	let code = $$('input').value.replace(/\n/g, '          '); // 换行符替换为10个空格，便于恢复换行符。
-	$$('input').value = '';
-	if( !code.match(/[a-zA-Z]/) ) return;
-
-	let formula_2_edit = $$('formula-second-edit');
-	if( formula_2_edit ) {
-		katex.render(code, formula_2_edit.firstElementChild, {
-            throwOnError: !1,
-            errorColor: "#f00"
-        });
-        formula_2_edit.setAttribute('data-value', code);
-        formula_2_edit.removeAttribute('id');
-	} else {
-		$('[data-formula="e=mc^2"]')[0].value = code;
-		$('.ql-action')[0].click();
-	}
+	$$('editing') && (
+		window.katex.render(
+			$$('input').value, $$('editing')), 
+		$$('editing').setAttribute('data-value', $$('input').value),
+			$$('editing').removeAttribute('id'), 
+			$$('math-edit').parentNode.removeChild($$('math-edit'))
+		);
 }
 
 // 双击数学公式，重新编辑
-document.addEventListener('dblclick', e => {
+document.addEventListener('click', e => {
 	if( !window.is_edit ) return
 	let ql_formula = e.path.slice(0, -4).filter( e => (e.className.toString() || '').includes('ql-formula') );
 	if( ql_formula.length && ql_formula[0].tagName.toLowerCase() === "span" ) {
-		input_popup_change_view('formula-editor');
-		$$('input').focus();
-		$$('input').value = ql_formula[0].getAttribute('data-value').replace(/          /g, '\n');
-		ql_formula[0].id = 'formula-second-edit';
+		!$$('math-edit') && insert_formula_editor(ql_formula[0]);
 	}
 })
 

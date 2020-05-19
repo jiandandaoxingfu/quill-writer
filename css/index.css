@@ -82,6 +82,9 @@ p.ql-video {
 	opacity: 0;
 }
 
+.ql-editor {
+	font-size: 15px;
+}
 .ql-editor p {
 	padding: 5px 0;
 	font-family: 'Microsoft-YaHei';
@@ -297,47 +300,26 @@ input[name="video-name"] {
 	font-family: 'kaiti';	
 }
 
-/*公式编辑框*/
-#formula-editor {
-	position: fixed;
-	left: 0%;
-	right: 0%;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 600px;
-	height: 500px;
-	margin: 0 auto;
-	z-index: -1;
-	border-radius: 10px;
-	box-shadow: 0 0 15px black;
-	font-size: 13px;
-	transition: opacity 0.3s;
-	opacity: 0;
-	background-color: white;
-}
-#formula-editor #input,  #formula-editor #output {
-	height: calc(50% - 15px);
-	width: 100%;
-	border-radius: 10px 10px 0px 0px;
-	padding: 20px;
-	border: 15px solid white;
-	background-color: #f0f0f0;
-}
-#formula-editor button {
-	width: calc(100% - 26px);
-	margin: 0 13px;
-	text-align: center;
-	height: 35px;
-	font-size: 20px;
-	padding: 3px 0;
-	font-family: 'kaiti';
-}
-#formula-editor #output {
-	border-radius: 0px 0px 10px 10px;
-	overflow: scroll;
-}
 
-#formula-editor #buffer {
+#math-edit {
+	width: 100%;
+}
+#math-edit #input {
+	width: 100%;
+	padding: 15px;
+	height: 55px;
+	min-height: 50px;
+	background-color: #f0f0f0;
+	border: none;
+}
+#math-edit #output {
+	width: 100%;
+	text-align: center;
+}
+#math-edit .btn {
+	width: 100%;
+}
+#math-edit #buffer {
 	display: none;
 }
 
@@ -390,5 +372,6 @@ input[name="video-name"] {
 		margin: 0 auto;
 		width: 210mm !important;
 		height: 297mm !important;
+		box-shadow: none;
 	}
 }
